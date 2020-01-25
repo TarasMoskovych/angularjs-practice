@@ -1,0 +1,19 @@
+<html ng-app="app">
+  <head>
+    <title>My Angular app</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+  </head>
+  <body>
+    <div ng-controller="MoviesController as movies">
+      <ul>
+        <li ng-repeat="movie in movies.favorites">
+          <p>{{ movie.title }} {{ $index }}</p>
+          <p>Released in: {{ movie.year }}</p>
+        </li>
+      </ul>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/MoviesController.js"></script>
+  </body>
+</html>
