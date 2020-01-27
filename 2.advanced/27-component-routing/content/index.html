@@ -1,0 +1,36 @@
+<html ng-app="app">
+
+<head>
+  <title>My Angular app</title>
+  <link href="css/app.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+</head>
+
+<body>
+  <div class="main">
+    <header class="header">
+      <ul class="header__labels">
+        <li>
+          <a ui-sref="home" ui-sref-active="active">Home</a>
+        </li>
+        <li>
+          <a ui-sref="about" ui-sref-active="active">About</a>
+        </li>
+        <li>
+          <a ui-sref="contact" ui-sref-active="active">Contact</a>
+        </li>
+      </ul>
+    </header>
+    <div class="content" ui-view></div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.24/angular-ui-router.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/components/home/home.js"></script>
+  <script src="js/components/home/home.component.js"></script>
+  <script src="js/components/about/about.js"></script>
+  <script src="js/components/about/about.component.js"></script>
+  <script src="js/components/contact/contact.js"></script>
+  <script src="js/components/contact/contact.component.js"></script>
+</body>
+
+</html>

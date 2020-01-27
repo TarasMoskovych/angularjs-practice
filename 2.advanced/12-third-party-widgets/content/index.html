@@ -1,0 +1,22 @@
+<html ng-app="app">
+
+<head>
+  <title>My Angular app</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.0/pikaday.min.js"></script>
+  <link href="css/pikaday.css" rel="stylesheet">
+</head>
+
+<body>
+  <div ng-controller="DateController as ctrl">
+    Parent date: {{ ctrl.date | date: 'MMM d, yyyy' }}
+    <date-picker date="ctrl.date"></date-picker>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/services/PikadayService.js"></script>
+  <script src="js/controllers/DateController.js"></script>
+  <script src="js/directives/DatePicker.js"></script>
+</body>
+
+</html>
