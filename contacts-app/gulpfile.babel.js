@@ -1,4 +1,5 @@
 const gulp = require('gulp');
+const babel = require('gulp-babel');
 const concat = require('gulp-concat');
 const wrap = require('gulp-wrap');
 const uglify = require('gulp-uglify');
@@ -78,6 +79,9 @@ gulp.task('scripts', ['modules'], () => {
     .pipe(wrap('(function(angular){\n\'use strict\';\n<%= contents %>})(window.angular);'))
     .pipe(concat('bundle.js'))
     .pipe(ngAnnotate())
+    .pipe(babel({
+      presets: ['@babel/env']
+    }))
     .pipe(gulpif(argv.deploy, uglify()))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(paths.dist + 'js/'));

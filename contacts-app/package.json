@@ -5,7 +5,7 @@
   "scripts": {
     "start": "gulp",
     "test": "karma start",
-    "deploy": "gulp production --deploy"
+    "deploy": "firebase login && gulp production --deploy"
   },
   "author": "",
   "license": "ISC",
@@ -26,6 +26,7 @@
     "del": "^5.1.0",
     "gulp": "^3.9.1",
     "gulp-angular-templatecache": "^3.0.0",
+    "gulp-babel": "^8.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-htmlmin": "^5.0.1",
     "gulp-if": "^3.0.0",

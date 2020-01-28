@@ -6,5 +6,6 @@ node_modules
 *.sublime-*
 .jekyll-metadata
 .idea
+.firebase
 npm-debug.log
 templates.js
