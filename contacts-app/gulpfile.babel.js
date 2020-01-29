@@ -7,7 +7,7 @@ const htmlmin = require('gulp-htmlmin');
 const gulpif = require('gulp-if');
 const sass = require('gulp-sass');
 const yargs = require('yargs');
-const ngAnnotate = require('gulp-ng-annotate');
+const ngAnnotate = require('gulp-ng-annotate-patched');
 const templateCache = require('gulp-angular-templatecache');
 const server = require('browser-sync').create();
 const del = require('del');
@@ -22,10 +22,11 @@ const paths = {
   dist: './dist/',
   scripts: [`${root}/app/**/*.js`, `!${root}/app/**/*.spec.js`],
   tests: `${root}/app/**/*.spec.js`,
-  styles: `${root}/sass/*.scss`,
+  styles: `${root}/scss/*.scss`,
   templates: `${root}/app/**/*.html`,
   modules: [
     'angular/angular.js',
+    'angular-messages/angular-messages.js',
     'angular-ui-router/release/angular-ui-router.js',
     'firebase/firebase.js',
     'angularfire/dist/angularfire.js',
@@ -94,7 +95,7 @@ gulp.task('serve', () => {
     }
   });
 
-  gulp.watch('src/sass/**/*.scss', gulp.series('styles'));
+  gulp.watch('src/scss/**/*.scss', gulp.series('styles'));
   gulp.watch(['src/app/**/*.js', '!src/app/**/*.spec.js', 'src/app/**/*.html'], gulp.series('scripts'));
 });
 

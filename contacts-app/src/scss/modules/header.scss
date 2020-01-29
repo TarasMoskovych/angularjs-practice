@@ -26,6 +26,10 @@
       color: #E32E30;
       padding: 5px 10px;
       margin-left: 10px;
+
+      &:hover {
+        color: darken(#E32E30, 20);
+      }
     }
   }
 
@@ -37,6 +41,10 @@
       margin-left: 30px;
       position: relative;
       top: -2px;
+
+      &:hover {
+        color: darken(#50D749, 20);
+      }
     }
 
     .material-icons {

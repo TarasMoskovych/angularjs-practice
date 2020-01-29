@@ -1,0 +1,17 @@
+<div class="auth">
+  <h1>Login</h1>
+  <auth-form
+    user="$ctrl.user"
+    loading="$ctrl.loading"
+    message="{{ $ctrl.error }}"
+    button="Sign in"
+    on-submit="$ctrl.loginUser($event);"
+    on-keyup="$ctrl.cleanErrors();"
+  ></auth-form>
+</div>
+<div class="auth__info">
+  Don't have an account?
+  <a ui-sref="auth.register">
+    Create one here
+  </a>
+</div>

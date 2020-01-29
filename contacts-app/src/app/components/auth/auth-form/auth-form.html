@@ -1,0 +1,49 @@
+<form name="authForm" novalidate ng-submit="$ctrl.submitForm();">
+  <label>
+    <input
+      type="email"
+      name="email"
+      required
+      placeholder="Enter your email"
+      ng-model="$ctrl.user.email"
+      ng-keyup="$ctrl.onKeyup();"
+    />
+    <div class="auth__error-message" ng-if="authForm.email.$touched" ng-messages="authForm.email.$error">
+      <div ng-message="required">
+        Please enter Email.
+      </div>
+      <div ng-message="email">
+        Please enter valid Email.
+      </div>
+    </div>
+  </label>
+
+  <label>
+    <input
+      type="password"
+      name="password"
+      required
+      placeholder="Enter your password"
+      ng-model="$ctrl.user.password"
+      ng-minlength="6"
+      ng-keyup="$ctrl.onKeyup();"
+    />
+    <div
+      class="auth__error-message"
+      ng-if="authForm.password.$touched"
+      ng-messages="authForm.password.$error"
+    ><div ng-message="required">
+        Please enter Password.
+      </div>
+      <div ng-message="minlength">
+        Minimum of 6 characters.
+      </div>
+    </div>
+  </label>
+  <div class="auth__button">
+    <button ng-disabled="authForm.$invalid || $ctrl.loading">{{ $ctrl.button }}</button>
+  </div>
+  <div class="auth__error" ng-if="$ctrl.message">
+    {{ $ctrl.message }}
+  </div>
+</form>
