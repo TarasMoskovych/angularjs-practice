@@ -9,7 +9,7 @@ const sass = require('gulp-sass');
 const yargs = require('yargs');
 const ngAnnotate = require('gulp-ng-annotate');
 const templateCache = require('gulp-angular-templatecache');
-const server = require('browser-sync');
+const server = require('browser-sync').create();
 const del = require('del');
 const path = require('path');
 const child = require('child_process');
@@ -38,8 +38,6 @@ const paths = {
   ]
 };
 
-server.create();
-
 gulp.task('clean', cb => del(paths.dist + '**/*', cb));
 
 gulp.task('templates', () => {
@@ -55,12 +53,12 @@ gulp.task('templates', () => {
     .pipe(gulp.dest('./'));
 });
 
-gulp.task('modules', ['templates'], () => {
+gulp.task('modules', gulp.series('templates', () => {
   return gulp.src(paths.modules.map(item => 'node_modules/' + item))
     .pipe(concat('vendor.js'))
     .pipe(gulpif(argv.deploy, uglify()))
     .pipe(gulp.dest(paths.dist + 'js/'));
-});
+}));
 
 gulp.task('styles', () => {
   return gulp.src(paths.styles)
@@ -68,7 +66,7 @@ gulp.task('styles', () => {
     .pipe(gulp.dest(paths.dist + 'css/'));
 });
 
-gulp.task('scripts', ['modules'], () => {
+gulp.task('scripts', gulp.series('modules', () => {
   return gulp.src([
     `!${root}/app/**/*.spec.js`,
     `${root}/app/**/*.module.js`,
@@ -85,45 +83,32 @@ gulp.task('scripts', ['modules'], () => {
     .pipe(gulpif(argv.deploy, uglify()))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(paths.dist + 'js/'));
-});
+}));
 
 gulp.task('serve', () => {
-  return server.init({
+  server.init({
     files: [`${paths.dist}/**`],
-    port: 4000,
+    port: 4200,
     server: {
       baseDir: paths.dist
     }
   });
+
+  gulp.watch('src/sass/**/*.scss', gulp.series('styles'));
+  gulp.watch(['src/app/**/*.js', '!src/app/**/*.spec.js', 'src/app/**/*.html'], gulp.series('scripts'));
 });
 
-gulp.task('copy', ['clean'], () => {
+gulp.task('copy', gulp.series('clean', () => {
   return gulp.src(paths.static, { base: 'src' })
     .pipe(gulp.dest(paths.dist));
-});
+}));
 
-gulp.task('watch', ['serve', 'scripts'], () => {
-  gulp.watch([paths.scripts, paths.templates], ['scripts']);
-  gulp.watch(paths.styles, ['styles']);
-});
-
-gulp.task('firebase', ['styles', 'scripts'], cb => {
+gulp.task('firebase', gulp.series('styles', 'scripts', () => {
   return exec('firebase deploy', function (err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
-    cb(err);
   });
-});
+}));
 
-gulp.task('default', [
-  'copy',
-  'styles',
-  'serve',
-  'watch'
-]);
-
-gulp.task('production', [
-  'copy',
-  'scripts',
-  'firebase'
-]);
+gulp.task('default', gulp.series('copy', 'styles', 'scripts', 'serve'));
+gulp.task('production', gulp.series('copy', 'firebase'));
