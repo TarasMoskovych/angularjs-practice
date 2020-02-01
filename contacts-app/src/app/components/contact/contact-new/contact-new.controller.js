@@ -18,7 +18,7 @@ function ContactNewController(ContactService, $state) {
   };
 
   ctrl.createNewContact = function({ contact }) {
-    ContactService.createNewContact(contact)
+    return ContactService.createNewContact(contact)
       .then(contact => $state.go('contact', {
         id: contact. key
       }));

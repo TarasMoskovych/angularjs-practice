@@ -4,7 +4,7 @@ function ContactEditController(ContactService, cfpLoadingBar, $window, $state) {
   ctrl.updateContact = function({ contact }) {
     cfpLoadingBar.start();
 
-    ContactService
+    return ContactService
       .updateContact(contact)
       .finally(cfpLoadingBar.complete);
   };
@@ -16,7 +16,7 @@ function ContactEditController(ContactService, cfpLoadingBar, $window, $state) {
 
     cfpLoadingBar.start();
 
-    ContactService
+    return ContactService
       .deleteContact(contact)
       .then(() => $state.go('contacts'))
       .finally(cfpLoadingBar.complete);

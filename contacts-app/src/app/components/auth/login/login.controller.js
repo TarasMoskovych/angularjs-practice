@@ -11,7 +11,7 @@ function LoginController(AuthService, $state) {
   };
 
   ctrl.loginUser = function (event) {
-    AuthService
+    return AuthService
       .login(event.user)
       .then(
         () => $state.go('app'),
