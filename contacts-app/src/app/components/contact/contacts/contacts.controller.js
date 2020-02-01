@@ -3,7 +3,7 @@ function ContactsController($state) {
 
   ctrl.goToContact = function({ id }) {
     $state.go('contact', { id });
-  }
+  };
 }
 
 angular

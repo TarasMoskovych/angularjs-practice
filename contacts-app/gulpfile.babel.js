@@ -28,7 +28,10 @@ const paths = {
     'angular/angular.js',
     'angular-messages/angular-messages.js',
     'angular-ui-router/release/angular-ui-router.js',
-    'firebase/firebase.js',
+    'firebase/firebase-app.js',
+    'firebase/firebase-analytics.js',
+    'firebase/firebase-auth.js',
+    'firebase/firebase-database.js',
     'angularfire/dist/angularfire.js',
     'angular-loading-bar/build/loading-bar.min.js'
   ],
