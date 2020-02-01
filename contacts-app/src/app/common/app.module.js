@@ -4,7 +4,13 @@ angular
     'angular-loading-bar',
     'ngMessages'
   ])
-  .run(function($transitions, cfpLoadingBar) {
-    $transitions.onStart({}, cfpLoadingBar.start);
+  .run(function($transitions, $rootScope, cfpLoadingBar) {
+    $transitions.onStart({
+      to: function(state) {
+        $rootScope.$emit('stateChange', state.name);
+      }
+    }, function() {
+      cfpLoadingBar.start();
+    });
     $transitions.onSuccess({}, cfpLoadingBar.complete);
   });

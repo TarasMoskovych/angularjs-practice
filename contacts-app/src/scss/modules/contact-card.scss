@@ -32,6 +32,10 @@
     margin-left: 10px;
     color: #fff;
 
+    &--active {
+      opacity: 1;
+    }
+
     &--friends {
       background: #008FED;
     }
