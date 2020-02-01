@@ -3,23 +3,23 @@ function AppSidebarController() {
 
   ctrl.contactTags = [
     {
-      label: 'All',
+      label: 'all',
       icon: 'star'
     },
     {
-      label: 'Friends',
+      label: 'friends',
       icon: 'people'
     },
     {
-      label: 'Family',
+      label: 'family',
       icon: 'child_care'
     },
     {
-      label: 'Acquaintances',
+      label: 'acquaintances',
       icon: 'accessibility'
     },
     {
-      label: 'Following',
+      label: 'following',
       icon: 'remove_red_eye'
     }
   ];

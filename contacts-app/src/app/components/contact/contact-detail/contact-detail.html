@@ -20,6 +20,7 @@
           id="name"
           placeholder="Name"
           type="text"
+          length-check
           name="name"
           required
           ng-change="$ctrl.updateContact();"
@@ -43,6 +44,7 @@
         <input
           id="email"
           placeholder="Email"
+          length-check
           type="email"
           name="email"
           ng-model="$ctrl.contact.email"
@@ -64,6 +66,7 @@
           id="job"
           placeholder="Job"
           type="text"
+          length-check
           name="job"
           ng-model="$ctrl.contact.job"
           ng-change="$ctrl.updateContact();"
@@ -84,6 +87,7 @@
           id="location"
           placeholder="Location"
           type="text"
+          length-check
           name="location"
           ng-model="$ctrl.contact.location"
           ng-change="$ctrl.updateContact();"
@@ -109,6 +113,7 @@
           id="facebook"
           placeholder="Facebook"
           type="text"
+          length-check
           name="facebook"
           ng-model="$ctrl.contact.social.facebook"
           ng-change="$ctrl.updateContact();"
@@ -129,6 +134,7 @@
           id="github"
           placeholder="Github"
           type="text"
+          length-check
           name="github"
           ng-model="$ctrl.contact.social.github"
           ng-change="$ctrl.updateContact();"
@@ -149,6 +155,7 @@
           id="twitter"
           placeholder="Twitter"
           type="text"
+          length-check
           name="twitter"
           ng-model="$ctrl.contact.social.twitter"
           ng-change="$ctrl.updateContact();"
@@ -169,6 +176,7 @@
           id="linkedin"
           placeholder="Linkedin"
           type="text"
+          length-check
           name="linkedin"
           ng-model="$ctrl.contact.social.linkedin"
           ng-change="$ctrl.updateContact();"
