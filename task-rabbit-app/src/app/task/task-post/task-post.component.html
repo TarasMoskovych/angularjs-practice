@@ -1,0 +1,24 @@
+<form ng-submit="$ctrl.postTask();">
+  <div>
+    <input
+      type="text"
+      placeholder="Task title"
+      ng-model="$ctrl.task.title"
+    />
+  </div>
+  <div>
+    <input
+      type="text"
+      placeholder="Task description"
+      ng-model="$ctrl.task.description"
+    />
+  </div>  <div>
+    <input
+      type="number"
+      placeholder="Task total"
+      ng-model="$ctrl.task.total"
+    />
+  </div>
+
+  <button>Post</button>
+</form>

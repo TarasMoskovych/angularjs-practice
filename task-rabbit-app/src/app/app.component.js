@@ -1,6 +1,3 @@
 export const app = {
-  template: require('./app.component.html').default,
-  controller: function() {
-    this.title = 'Hello, world!';
-  }
+  template: `<div ng-view></div>`
 };
