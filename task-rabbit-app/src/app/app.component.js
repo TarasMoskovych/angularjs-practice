@@ -1,3 +1,8 @@
+import './app.component.scss';
+
 export const app = {
-  template: `<div ng-view></div>`
+  template: `
+    <navbar></navbar>
+    <div class="main" ng-view></div>
+  `
 };

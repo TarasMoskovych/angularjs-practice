@@ -11,5 +11,7 @@ export const firebaseConfig = {
 };
 
 export const databases = {
+  auth: () => firebase.auth(),
+  users: () => firebase.database().ref('users'),
   tasks: () => firebase.database().ref('tasks'),
 };

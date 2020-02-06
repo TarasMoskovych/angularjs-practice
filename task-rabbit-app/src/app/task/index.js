@@ -1,4 +1,4 @@
-import './task.service';
-import './task-browse/task-browse.component';
-import './task-edit/task-edit.component';
-import './task-post/task-post.component';
+export * from './task.service';
+export * from './task-browse/task-browse.component';
+export * from './task-edit/task-edit.component';
+export * from './task-post/task-post.component';

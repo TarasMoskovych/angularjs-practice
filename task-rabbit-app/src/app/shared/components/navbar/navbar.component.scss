@@ -1,0 +1,51 @@
+.navbar {
+  position: fixed;
+  top: 0;
+
+  &__actions {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    &--flex-end {
+      justify-content: flex-end;
+    }
+
+    &--auth {
+      display: flex;
+    }
+  }
+
+  &__select {
+    margin: 0;
+
+    & .md-select-icon:after {
+      color: #C2DFEE;
+    }
+
+    & .md-text {
+      display: none !important;
+    }
+  }
+
+  &__link-button {
+    text-transform: capitalize;
+  }
+
+  &__user-wrapper {
+    left: 35px;
+    position: relative;
+  }
+
+  &__user {
+    font-size: .9em;
+  }
+
+  &__gravatar {
+    border-radius: 50%;
+    height: 35px;
+    vertical-align: middle;
+    width: 35px;
+  }
+}

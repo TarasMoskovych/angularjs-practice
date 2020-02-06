@@ -12,12 +12,22 @@ import * as firebase from 'firebase';
 import 'angularfire';
 import { firebaseConfig } from './../firebase';
 
+// Shared Module
+import './shared/shared.module';
+import './shared/components';
+
+// Auth Module
+import './auth/auth.module';
+import './auth/index';
+
 // Task Module
 import './task/task.module';
 import './task/index';
 
 angular
   .module('app', [
+    'shared',
+    'auth',
     'task',
     'ngRoute',
     'ngMaterial',
@@ -29,8 +39,11 @@ angular
     firebase.initializeApp(firebaseConfig);
 
     $routeProvider
-      .when('/', {
-        template: '<div>Main</div>'
+      .when('/login', {
+        template: '<login></login>'
+      })
+      .when('/register', {
+        template: '<register></register>'
       })
       .when('/post', {
         template: '<task-post></task-post>'
@@ -42,6 +55,6 @@ angular
         template: '<task-browse></task-browse>'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/login'
       });
   });

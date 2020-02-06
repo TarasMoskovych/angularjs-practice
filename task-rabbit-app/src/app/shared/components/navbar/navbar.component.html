@@ -1,0 +1,37 @@
+<md-toolbar class="navbar md-hue-2">
+  <div class="md-toolbar-tools">
+    <h2>TaskRabbit</h2>
+    <div class="navbar__actions" ng-class="$ctrl.isSignedIn ? '' : 'navbar__actions--flex-end'">
+      <div ng-if="$ctrl.isSignedIn">
+        <md-button class="navbar__link-button" ng-href="#!post">
+          Post a Task
+        </md-button>
+        <md-button class="navbar__link-button" ng-href="#!browse">
+          Browse Tasks
+        </md-button>
+      </div>
+      <div class="navbar__actions--auth">
+        <md-button ng-if="!$ctrl.isSignedIn" class="navbar__link-button" ng-href="#!login">
+          Login
+        </md-button>
+        <md-button ng-if="!$ctrl.isSignedIn" class="navbar__link-button" ng-href="#!register">
+          Register
+        </md-button>
+        <div class="navbar__user-wrapper" ng-if="$ctrl.isSignedIn">
+          <span class="navbar__user">{{ $ctrl.isSignedIn.displayName }}</span>
+          <img class="navbar__gravatar" ng-src="{{ $ctrl.isSignedIn.photoURL }}" alt="Avatar">
+        </div>
+        <md-select
+          ng-if="$ctrl.isSignedIn"
+          ng-change="$ctrl.onChangeAction($event);"
+          aria-label="Actions"
+          ng-model="$ctrl.select"
+          class="navbar__select md-no-underline">
+          <md-option value="axe">Axe</md-option>
+          <md-option value="sword">Sword</md-option>
+          <md-option value="logout">Logout</md-option>
+        </md-select>
+      </div>
+    </div>
+  </div>
+</md-toolbar>
