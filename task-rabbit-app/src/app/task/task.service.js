@@ -5,7 +5,7 @@ function TaskService($firebaseArray) {
   const ref = databases.tasks();
 
   this.get = function() {
-    return $firebaseArray(ref);
+    return $firebaseArray(ref).$loaded();
   };
 
   this.add = function(task) {
@@ -15,4 +15,4 @@ function TaskService($firebaseArray) {
 
 angular
   .module('task')
-  .service('TaskService', ['$firebaseArray', TaskService]);
+  .service('TaskService', TaskService);

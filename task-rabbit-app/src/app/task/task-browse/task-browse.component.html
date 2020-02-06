@@ -1,14 +1,30 @@
-<h2>Browse Task</h2>
+<md-toolbar md-scroll-shrink>
+  <div class="md-toolbar-tools">Tasks</div>
+</md-toolbar>
 
-<a href="#!post">Post task</a>
+<md-content layout-padding>
+  <div>
+    <md-input-container class="search-input">
+      <label>Search</label>
+      <input ng-model="search">
+    </md-input-container>
 
-<div>
-  Search
-</div>
-<input type="text" ng-model="search" placeholder="Search">
+    <md-button class="md-primary" ng-href="#!post">ADD TASK</md-button>
+  </div>
 
-<ul>
-  <li
-    ng-repeat="task in $ctrl.tasks | filter: search | orderBy: 'title'"
-  >{{ task.title }} - {{ task.description | limitTo: 20 }} - {{ task.total }}</li>
-</ul>
+  <div ng-if="$ctrl.loading" layout="row" layout-align="center center">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
+
+  <mat-list >
+    <md-list-item class="md-3-line" ng-repeat="task in $ctrl.tasks | filter: search | orderBy: 'title'" ng-click="null">
+      <img ng-src="{{ $ctrl.taskIcon }}" class="md-avatar" alt="Image" />
+      <div class="md-list-item-text" layout="column">
+        <h3>{{ task.title }}</h3>
+        <h4>{{ task.description | limitTo: 20 }}</h4>
+        <p>{{ task.total }}</p>
+      </div>
+    </md-list-item>
+  </mat-list>
+
+</md-content>
