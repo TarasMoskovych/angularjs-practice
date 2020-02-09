@@ -2,3 +2,12 @@
   max-width: 60%;
   margin: 15px auto 0;
 }
+
+.full-width {
+  max-width: 100%;
+  margin: 0;
+
+  md-card {
+    margin: 0;
+  }
+}

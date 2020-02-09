@@ -1,14 +1,18 @@
 <md-content>
-  <form name="authForm" class="wrapper" ng-submit="$ctrl.submit();">
-    <md-card>
+  <form
+    name="authForm"
+    class="wrapper"
+    ng-class="$ctrl.fullWidth ? 'full-width' : ''"
+    ng-submit="$ctrl.submit();"
+  ><md-card>
       <md-card-title>
-        <md-card-title-text>
+        <md-card-title-text ng-if="$ctrl.title">
           <span class="md-headline">{{ $ctrl.title }}</span>
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
         <div layout-gt-xs="row">
-          <md-input-container class="md-block" flex-gt-xs ng-if="$ctrl.type === 'register'">
+          <md-input-container class="md-block" flex-gt-xs ng-if="$ctrl.type === 'register' || $ctrl.type === 'update'">
             <label>Name</label>
             <input
               required
@@ -21,46 +25,46 @@
               </div>
             </div>
           </md-input-container>
-         </div>
-         <div layout-gt-xs="row">
-          <md-input-container class="md-block" flex-gt-xs>
-            <label>Email</label>
-            <input
-              required
-              type="email"
-              name="email"
-              ng-model="$ctrl.form.email"
-            />
-            <div ng-messages="authForm.email.$error">
-              <div ng-message="required">
-                Please enter Email.
-              </div>
-              <div ng-message="email">
-                Please enter valid Email.
-              </div>
+        </div>
+        <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-xs ng-if="$ctrl.type !== 'update'">
+          <label>Email</label>
+          <input
+            required
+            type="email"
+            name="email"
+            ng-model="$ctrl.form.email"
+          />
+          <div ng-messages="authForm.email.$error">
+            <div ng-message="required">
+              Please enter Email.
             </div>
-          </md-input-container>
-         </div>
-         <div layout-gt-xs="row">
-          <md-input-container class="md-block" flex-gt-xs>
-            <label>Password</label>
-            <input
-              type="password"
-              required
-              name="password"
-              ng-model="$ctrl.form.password"
-              minlength="6"
-            />
-            <div ng-messages="authForm.password.$error">
-              <div ng-message="required">
-                Please enter Password.
-              </div>
-              <div ng-message="minlength">
-                Password should be greater than 5 symbols.
-              </div>
+            <div ng-message="email">
+              Please enter valid Email.
             </div>
-          </md-input-container>
-         </div>
+          </div>
+        </md-input-container>
+        </div>
+        <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-xs ng-if="$ctrl.type !== 'update'">
+          <label>Password</label>
+          <input
+            type="password"
+            required
+            name="password"
+            ng-model="$ctrl.form.password"
+            minlength="6"
+          />
+          <div ng-messages="authForm.password.$error">
+            <div ng-message="required">
+              Please enter Password.
+            </div>
+            <div ng-message="minlength">
+              Password should be greater than 5 symbols.
+            </div>
+          </div>
+        </md-input-container>
+        </div>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
         <md-button

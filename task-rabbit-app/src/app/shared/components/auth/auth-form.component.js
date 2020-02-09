@@ -3,9 +3,11 @@ import './auth-form.component.scss';
 
 const authForm = {
   bindings: {
+    name: '@',
     title: '@',
     button: '@',
     type: '@',
+    fullWidth: '<',
     loading: '=',
     onSubmit: '&'
   },
@@ -17,6 +19,10 @@ const authForm = {
         email: '',
         password: ''
       };
+
+      if (this.name) {
+        Object.assign(this.form, { name: this.name });
+      }
     };
 
     this.submit = function() {
