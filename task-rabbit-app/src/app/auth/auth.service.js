@@ -11,6 +11,7 @@ function AuthService($rootScope, $location) {
   const register = ({ name, email, password }) => {
     return auth.createUserWithEmailAndPassword(email, password)
       .then(({ user }) => {
+        user.sendEmailVerification();
         return user.updateProfile({
           displayName: name,
           photoURL: generateAvatar(user.uid)
@@ -32,9 +33,10 @@ function AuthService($rootScope, $location) {
   const isSignedIn = () => auth.currentUser;
 
   auth.onAuthStateChanged(authData => {
-    if (authData) {
+    if (authData?.emailVerified) {
       $rootScope.$emit('authStateChanged', authData);
       $location.path('/browse');
+      $rootScope.$apply();
     } else {
       $rootScope.$emit('authStateChanged', null);
     }

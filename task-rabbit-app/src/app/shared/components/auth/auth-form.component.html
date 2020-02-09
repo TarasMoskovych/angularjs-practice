@@ -1,63 +1,74 @@
-<md-content layout-padding>
-  <form name="authForm" ng-submit="$ctrl.submit();">
-    <div layout-gt-xs="row">
-      <md-input-container class="md-block" flex-gt-xs ng-if="$ctrl.type === 'register'">
-        <label>Name</label>
-        <input
-          required
-          name="name"
-          ng-model="$ctrl.form.name"
-        />
-        <div ng-messages="authForm.name.$error">
-          <div ng-message="required">
-            Please enter Name.
-          </div>
-        </div>
-      </md-input-container>
-     </div>
-     <div layout-gt-xs="row">
-      <md-input-container class="md-block" flex-gt-xs>
-        <label>Email</label>
-        <input
-          required
-          type="email"
-          name="email"
-          ng-model="$ctrl.form.email"
-        />
-        <div ng-messages="authForm.email.$error">
-          <div ng-message="required">
-            Please enter Email.
-          </div>
-          <div ng-message="email">
-            Please enter valid Email.
-          </div>
-        </div>
-      </md-input-container>
-     </div>
-     <div layout-gt-xs="row">
-      <md-input-container class="md-block" flex-gt-xs>
-        <label>Password</label>
-        <input
-          type="password"
-          required
-          name="password"
-          ng-model="$ctrl.form.password"
-          minlength="6"
-        />
-        <div ng-messages="authForm.password.$error">
-          <div ng-message="required">
-            Please enter Password.
-          </div>
-          <div ng-message="minlength">
-            Password should be greater than 5 symbols.
-          </div>
-        </div>
-      </md-input-container>
-     </div>
-    <md-button
-      ng-disabled="authForm.$invalid"
-      type="submit"
-      class="md-raised md-primary submit-button"
-    >{{ $ctrl.button }}</md-button>
+<md-content>
+  <form name="authForm" class="wrapper" ng-submit="$ctrl.submit();">
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">{{ $ctrl.title }}</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <div layout-gt-xs="row">
+          <md-input-container class="md-block" flex-gt-xs ng-if="$ctrl.type === 'register'">
+            <label>Name</label>
+            <input
+              required
+              name="name"
+              ng-model="$ctrl.form.name"
+            />
+            <div ng-messages="authForm.name.$error">
+              <div ng-message="required">
+                Please enter Name.
+              </div>
+            </div>
+          </md-input-container>
+         </div>
+         <div layout-gt-xs="row">
+          <md-input-container class="md-block" flex-gt-xs>
+            <label>Email</label>
+            <input
+              required
+              type="email"
+              name="email"
+              ng-model="$ctrl.form.email"
+            />
+            <div ng-messages="authForm.email.$error">
+              <div ng-message="required">
+                Please enter Email.
+              </div>
+              <div ng-message="email">
+                Please enter valid Email.
+              </div>
+            </div>
+          </md-input-container>
+         </div>
+         <div layout-gt-xs="row">
+          <md-input-container class="md-block" flex-gt-xs>
+            <label>Password</label>
+            <input
+              type="password"
+              required
+              name="password"
+              ng-model="$ctrl.form.password"
+              minlength="6"
+            />
+            <div ng-messages="authForm.password.$error">
+              <div ng-message="required">
+                Please enter Password.
+              </div>
+              <div ng-message="minlength">
+                Password should be greater than 5 symbols.
+              </div>
+            </div>
+          </md-input-container>
+         </div>
+      </md-card-content>
+      <md-card-actions layout="row" layout-align="end center">
+        <md-button
+          ng-disabled="authForm.$invalid || $ctrl.loading"
+          type="submit"
+          class="md-raised md-primary"
+        >{{ $ctrl.button }}</md-button>
+      </md-card-actions>
+    </md-card>
   </form>
 </md-content>

@@ -3,8 +3,10 @@ import './auth-form.component.scss';
 
 const authForm = {
   bindings: {
+    title: '@',
     button: '@',
     type: '@',
+    loading: '=',
     onSubmit: '&'
   },
   template: require('./auth-form.component.html').default,
@@ -18,6 +20,7 @@ const authForm = {
     };
 
     this.submit = function() {
+      this.loading = true;
       this.onSubmit({
         $event: {
           data: this.form

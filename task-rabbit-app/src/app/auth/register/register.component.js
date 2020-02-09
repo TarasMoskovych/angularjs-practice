@@ -2,11 +2,18 @@ import angular from 'angular';
 
 const register = {
   template: require('./register.component.html').default,
-  controller: function($location, AuthService) {
+  controller: function($location, $scope, AuthService, NotificationService) {
+    this.loading = false;
+
     this.register = function({ data }) {
       AuthService
         .register(data)
-        .then(() => $location.path('/login'));
+        .then(() => $location.path('/login'))
+        .catch(e =>  NotificationService.show(e.message))
+        .finally(() => {
+          this.loading = false;
+          $scope.$apply();
+        });
     };
   }
 };

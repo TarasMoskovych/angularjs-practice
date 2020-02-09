@@ -15,6 +15,7 @@ import { firebaseConfig } from './../firebase';
 // Shared Module
 import './shared/shared.module';
 import './shared/components';
+import './shared/services';
 
 // Auth Module
 import './auth/auth.module';

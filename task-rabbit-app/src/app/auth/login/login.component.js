@@ -2,11 +2,17 @@ import angular from 'angular';
 
 const login = {
   template: require('./login.component.html').default,
-  controller: function($location, AuthService) {
+  controller: function($scope, AuthService, NotificationService) {
+    this.loading = false;
+
     this.login = function({ data }) {
       AuthService
         .login(data)
-        .then(() => $location.path('/browse'));
+        .catch(e =>  NotificationService.show(e.message))
+        .finally(() => {
+          this.loading = false;
+          $scope.$apply();
+        });
     };
   }
 };
