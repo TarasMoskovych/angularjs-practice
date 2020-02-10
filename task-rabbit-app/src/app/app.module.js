@@ -5,6 +5,7 @@ import 'angular-animate';
 import 'angular-aria';
 import 'angular-messages';
 import 'angular-material';
+import 'angular-moment';
 import 'ng-file-upload';
 import 'angular-material/angular-material.scss';
 import { app } from './app.component';
@@ -36,6 +37,7 @@ angular
     'ngMaterial',
     'ngMessages',
     'ngFileUpload',
+    'angularMoment',
     'firebase'
   ])
   .component('app', app)
@@ -48,12 +50,6 @@ angular
       })
       .when('/register', {
         template: '<register></register>'
-      })
-      .when('/post', {
-        template: '<task-post></task-post>'
-      })
-      .when('/edit', {
-        template: '<task-edit></task-edit>'
       })
       .when('/browse', {
         template: '<task-browse></task-browse>'

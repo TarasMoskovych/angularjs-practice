@@ -1,0 +1,13 @@
+.task-form {
+  justify-content: center;
+
+  &__heading {
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &__submit-button {
+    margin: 0;
+  }
+}

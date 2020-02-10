@@ -1,24 +1,69 @@
-<md-content layout-padding>
-  <div>
-    <md-input-container class="search-input">
-      <label>Search</label>
-      <input ng-model="search">
-    </md-input-container>
+<md-content class="task-browse" layout-padding>
+  <div class="task-browse__tasks">
+    <div class="task-browse__search-container">
+      <md-input-container class="task-browse__search-input">
+        <label>Search</label>
+        <input ng-model="search">
+      </md-input-container>
+    </div>
+    <div class="task-browse__list task-browse__list--scrollbar">
+      <mat-list>
+        <md-list-item
+          class="task-browse__list-item md-3-line"
+          ng-repeat="task in $ctrl.tasks | filter: search | orderBy: 'title'"
+          ng-href="#!browse/{{ task.$id }}"
+        ><img ng-src="{{ $ctrl.taskIcon }}" class="md-avatar" alt="Image" />
+          <div class="md-list-item-text" layout="column">
+            <h3 class="task-browse__list-item--title">{{ task.title | limitTo: 20 }}</h3>
+            <h3 am-time-ago="1581369733973"></h3>
+          </div>
+          <div class="task-browse__payment md-list-item-text" layout="column" layout-align="end center">
+            <p>{{ task.total | currency }}</p>
+            <h3 class="task-browse__status"></h3>
+          </div>
+        </md-list-item>
+      </mat-list>
+    </div>
   </div>
-
-  <div ng-if="$ctrl.loading" layout="row" layout-align="center center">
-    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-  </div>
-
-  <mat-list >
-    <md-list-item class="md-3-line" ng-repeat="task in $ctrl.tasks | filter: search | orderBy: 'title'" ng-click="null">
-      <img ng-src="{{ $ctrl.taskIcon }}" class="md-avatar" alt="Image" />
-      <div class="md-list-item-text" layout="column">
-        <h3>{{ task.title }}</h3>
-        <h4>{{ task.description | limitTo: 20 }}</h4>
-        <p>{{ task.total }}</p>
+  <div class="task-browse__details" layout-padding>
+    <div>
+      <div class="task-browse__details--info">
+        <h4>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum, et!
+        </h4>
+        <div class="task-browse__creator">
+          <p>Posted by <i>Taras - <span am-time-ago="1581369733973"></i></span></p>&nbsp;
+          <h4 class="task-browse__status task-browse__status--closed"></h4>
+        </div>
       </div>
-    </md-list-item>
-  </mat-list>
-
+      <div class="task-browse__details--admin">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <p>{{ '150' | currency }}</p>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-actions layout="row" layout-align="end center">
+            <md-button class="md-raised">Update</md-button>
+            <md-button class="md-raised md-warn">Remove</md-button>
+          </md-card-actions>
+        </md-card>
+      </div>
+    </div>
+    <md-card class="task-browse__description">
+      <md-card-title>
+        <md-card-title-text>
+          Description
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Debitis
+        aliquam sunt laboriosam possimus tenetur, repellendus cum sit non voluptates nemo?
+      </md-card-content>
+    </md-card>
+  </div>
 </md-content>
+
+<div class="task-browse__loader" ng-if="$ctrl.loading" layout="row" layout-align="center center">
+  <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>

@@ -3,7 +3,7 @@
     <h2>TaskRabbit</h2>
     <div class="navbar__actions" ng-class="$ctrl.isSignedIn ? '' : 'navbar__actions--flex-end'">
       <div ng-if="$ctrl.isSignedIn">
-        <md-button class="navbar__link-button" ng-href="#!post">
+        <md-button class="navbar__link-button" ng-click="$ctrl.openNewTaskModal();">
           Post a Task
         </md-button>
         <md-button class="navbar__link-button" ng-href="#!browse">

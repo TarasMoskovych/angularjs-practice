@@ -38,6 +38,19 @@ const navBar = {
         }
       });
     };
+
+    this.openNewTaskModal = function() {
+      const close = () => $mdDialog.hide();
+
+      $mdDialog.show({
+        template: `<task-post close="close();"></task-post>`,
+        clickOutsideToClose: true,
+        locals: { close },
+        controller: function($scope, close) {
+          $scope.close = close;
+        }
+      });
+    };
   }
 };
 
