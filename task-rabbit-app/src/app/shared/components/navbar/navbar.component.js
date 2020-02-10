@@ -26,13 +26,15 @@ const navBar = {
 
     this.updateProfile = function() {
       const name = this.isSignedIn?.displayName;
+      const close = () => $mdDialog.hide();
 
       $mdDialog.show({
-        template: `<update-profile name="{{ name }}"></update-profile>`,
+        template: `<update-profile name="{{ name }}" close="close();"></update-profile>`,
         clickOutsideToClose: true,
-        locals: { name },
-        controller: function($scope, name) {
+        locals: { name, close },
+        controller: function($scope, name, close) {
           $scope.name = name;
+          $scope.close = close;
         }
       });
     };

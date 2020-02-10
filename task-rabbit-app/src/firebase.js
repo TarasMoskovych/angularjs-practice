@@ -12,6 +12,7 @@ export const firebaseConfig = {
 
 export const databases = {
   auth: () => firebase.auth(),
+  storage: () => firebase.storage().ref(),
   users: () => firebase.database().ref('users'),
   tasks: () => firebase.database().ref('tasks'),
 };

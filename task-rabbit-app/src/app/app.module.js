@@ -4,6 +4,7 @@ import 'angular-animate';
 import 'angular-aria';
 import 'angular-messages';
 import 'angular-material';
+import 'ng-file-upload';
 import 'angular-material/angular-material.scss';
 import { app } from './app.component';
 
@@ -33,6 +34,7 @@ angular
     'ngRoute',
     'ngMaterial',
     'ngMessages',
+    'ngFileUpload',
     'firebase'
   ])
   .component('app', app)

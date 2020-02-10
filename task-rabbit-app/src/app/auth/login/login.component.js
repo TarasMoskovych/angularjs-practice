@@ -10,7 +10,7 @@ const login = {
         .login(data)
         .then(({ user }) => {
           if (!user.emailVerified) { NotificationService.show('Your account is inactive.'); }
-          $location.path('/brwose');
+          $location.path('/browse');
         })
         .catch(e => NotificationService.show(e.message))
         .finally(() => {

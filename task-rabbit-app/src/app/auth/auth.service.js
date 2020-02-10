@@ -4,6 +4,7 @@ import { generateAvatar } from './../../helpers';
 
 function AuthService($rootScope, $location) {
   const auth = databases.auth();
+  const storage = databases.storage();
   const users = databases.users();
 
   const login = ({ email, password }) => auth.signInWithEmailAndPassword(email, password);
@@ -26,8 +27,23 @@ function AuthService($rootScope, $location) {
   };
   const logout = () => auth.signOut();
 
-  const updatePassword = ({ email, password, oldPassword }) => {
-    return login(email, oldPassword).then(() => auth.currentUser.updatePassword(password));
+  const updateUserProfile = ({ name, photo }) => {
+    const { uid } = auth.currentUser;
+
+    const _updateProfile = (photoURL = null) => {
+      const obj = { displayName: name };
+
+      if (photoURL) { Object.assign(obj, { photoURL }); }
+
+      return auth.currentUser.updateProfile(obj).then(() => users.child(uid).update(obj));
+    };
+
+    if (!photo) { return _updateProfile(); }
+
+    return storage
+      .child(`avatars/user-${uid}`)
+      .put(photo, { contentType: 'image/jpeg' })
+      .then(snapshot => snapshot.ref.getDownloadURL().then(downloadURL => _updateProfile(downloadURL)));
   };
 
   const isSignedIn = () => auth.currentUser;
@@ -46,7 +62,7 @@ function AuthService($rootScope, $location) {
     login,
     register,
     logout,
-    updatePassword,
+    updateUserProfile,
     isSignedIn
   };
 }

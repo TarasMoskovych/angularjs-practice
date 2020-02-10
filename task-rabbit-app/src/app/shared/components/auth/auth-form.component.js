@@ -12,7 +12,7 @@ const authForm = {
     onSubmit: '&'
   },
   template: require('./auth-form.component.html').default,
-  controller: function() {
+  controller: function($scope) {
     this.$onInit = function() {
       this.form = {
         name: '',
@@ -23,6 +23,23 @@ const authForm = {
       if (this.name) {
         Object.assign(this.form, { name: this.name });
       }
+    };
+
+    this.onUpdatePhoto = function(file) {
+      const reader = new FileReader();
+
+      if (file) {
+        reader.readAsDataURL(file);
+        reader.addEventListener('load', () => {
+          this.preview = reader.result;
+          $scope.$apply();
+        }, { once: true });
+      }
+    };
+
+    this.onRemovePhoto = function() {
+      this.form.photo = null;
+      this.preview = null;
     };
 
     this.submit = function() {

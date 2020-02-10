@@ -27,46 +27,66 @@
           </md-input-container>
         </div>
         <div layout-gt-xs="row">
-        <md-input-container class="md-block" flex-gt-xs ng-if="$ctrl.type !== 'update'">
-          <label>Email</label>
-          <input
-            required
-            type="email"
-            name="email"
-            ng-model="$ctrl.form.email"
-          />
-          <div ng-messages="authForm.email.$error">
-            <div ng-message="required">
-              Please enter Email.
+          <md-input-container class="md-block" flex-gt-xs ng-if="$ctrl.type !== 'update'">
+            <label>Email</label>
+            <input
+              required
+              type="email"
+              name="email"
+              ng-model="$ctrl.form.email"
+            />
+            <div ng-messages="authForm.email.$error">
+              <div ng-message="required">
+                Please enter Email.
+              </div>
+              <div ng-message="email">
+                Please enter valid Email.
+              </div>
             </div>
-            <div ng-message="email">
-              Please enter valid Email.
-            </div>
-          </div>
-        </md-input-container>
+          </md-input-container>
         </div>
         <div layout-gt-xs="row">
-        <md-input-container class="md-block" flex-gt-xs ng-if="$ctrl.type !== 'update'">
-          <label>Password</label>
-          <input
-            type="password"
-            required
-            name="password"
-            ng-model="$ctrl.form.password"
-            minlength="6"
-          />
-          <div ng-messages="authForm.password.$error">
-            <div ng-message="required">
-              Please enter Password.
+          <md-input-container class="md-block" flex-gt-xs ng-if="$ctrl.type !== 'update'">
+            <label>Password</label>
+            <input
+              type="password"
+              required
+              name="password"
+              ng-model="$ctrl.form.password"
+              minlength="6"
+            />
+            <div ng-messages="authForm.password.$error">
+              <div ng-message="required">
+                Please enter Password.
+              </div>
+              <div ng-message="minlength">
+                Password should be greater than 5 symbols.
+              </div>
             </div>
-            <div ng-message="minlength">
-              Password should be greater than 5 symbols.
+          </md-input-container>
+        </div>
+        <div layout-gt-xs="row" layout-align="center center" ng-if="$ctrl.preview">
+          <md-card-title-media >
+            <div class="md-media-md">
+              <img class="image-preview" ng-src="{{ $ctrl.preview }}" alt="Preview">
             </div>
-          </div>
-        </md-input-container>
+          </md-card-title-media>
         </div>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
+        <md-button
+          ng-if="$ctrl.type === 'update' && $ctrl.preview"
+          ng-click="$ctrl.onRemovePhoto()"
+          type="button"
+          class="md-raised md-warn"
+        >Remove Photo</md-button>
+        <md-button
+          ng-model="$ctrl.form.photo"
+          ng-if="$ctrl.type === 'update'"
+          ngf-select="$ctrl.onUpdatePhoto($file)"
+          type="button"
+          class="md-raised"
+        >Upload Photo</md-button>
         <md-button
           ng-disabled="authForm.$invalid || $ctrl.loading"
           type="submit"
