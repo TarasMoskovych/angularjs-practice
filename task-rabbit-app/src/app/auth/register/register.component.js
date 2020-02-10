@@ -5,6 +5,10 @@ const register = {
   controller: function($location, $scope, AuthService, NotificationService) {
     this.loading = false;
 
+    this.$onInit = function() {
+      AuthService.redirect();
+    };
+
     this.register = function({ data }) {
       AuthService
         .register(data)

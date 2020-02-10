@@ -2,15 +2,19 @@ import angular from 'angular';
 
 const login = {
   template: require('./login.component.html').default,
-  controller: function($location, $scope, AuthService, NotificationService) {
+  controller: function($scope, AuthService, NotificationService) {
     this.loading = false;
+
+    this.$onInit = function() {
+      AuthService.redirect();
+    };
 
     this.login = function({ data }) {
       AuthService
         .login(data)
         .then(({ user }) => {
           if (!user.emailVerified) { NotificationService.show('Your account is inactive.'); }
-          $location.path('/browse');
+          AuthService.redirect();
         })
         .catch(e => NotificationService.show(e.message))
         .finally(() => {

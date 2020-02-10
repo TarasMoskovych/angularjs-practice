@@ -25,6 +25,7 @@ function AuthService($rootScope, $location) {
         });
       });
   };
+
   const logout = () => auth.signOut();
 
   const updateUserProfile = ({ name, photo }) => {
@@ -48,6 +49,12 @@ function AuthService($rootScope, $location) {
 
   const isSignedIn = () => auth.currentUser;
 
+  const redirect = () => {
+    if (auth.currentUser) {
+      $location.path('/browse');
+    }
+  };
+
   auth.onAuthStateChanged(authData => {
     if (authData?.emailVerified) {
       $rootScope.$emit('authStateChanged', authData);
@@ -63,7 +70,8 @@ function AuthService($rootScope, $location) {
     register,
     logout,
     updateUserProfile,
-    isSignedIn
+    isSignedIn,
+    redirect
   };
 }
 

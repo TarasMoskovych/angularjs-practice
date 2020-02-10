@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack --config webpack.prod.config.js",
     "serve": "webpack-dev-server --config webpack.dev.config.js --hot",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "deploy": "npm run lint && firebase login && npm run build && firebase deploy"
   },
   "husky": {
     "hooks": {
