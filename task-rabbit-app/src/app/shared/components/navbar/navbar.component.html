@@ -1,8 +1,9 @@
 <md-toolbar class="navbar md-hue-2">
   <div class="md-toolbar-tools">
-    <h2>TaskRabbit</h2>
+    <h2 class="navbar__header--desktop">TaskRabbit</h2>
+    <h2 class="navbar__header--mobile">TRb</h2>
     <div class="navbar__actions" ng-class="$ctrl.isSignedIn ? '' : 'navbar__actions--flex-end'">
-      <div ng-if="$ctrl.isSignedIn">
+      <div class="navbar__actions--options" ng-if="$ctrl.isSignedIn">
         <md-button class="navbar__link-button" ng-click="$ctrl.openNewTaskModal();">
           Post a Task
         </md-button>

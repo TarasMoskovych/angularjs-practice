@@ -1,6 +1,24 @@
+@import './../../../../scss/variables';
+
 .navbar {
   position: fixed;
   top: 0;
+
+  &__header {
+    &--mobile {
+      display: none;
+
+      @media screen and (max-width: $screen-xs-max) {
+        display: block;
+      }
+    }
+
+    &--desktop {
+      @media screen and (max-width: $screen-xs-max) {
+        display: none;
+      }
+    }
+  }
 
   &__actions {
     align-items: center;
@@ -15,6 +33,10 @@
     &--auth {
       display: flex;
     }
+
+    &--options {
+      display: flex;
+    }
   }
 
   &__select {
@@ -27,6 +49,19 @@
     & .md-text {
       display: none !important;
     }
+
+    .md-select-value {
+      min-width: 64px;
+
+      @media screen and (max-width: $screen-xs-max) {
+        min-width: 0;
+        width: auto;
+
+        .md-select-icon {
+          padding-right: 10px;
+        }
+      }
+    }
   }
 
   &__link-button {
@@ -36,10 +71,20 @@
   &__user-wrapper {
     left: 35px;
     position: relative;
+
+    @media screen and (max-width: $screen-xs-max) {
+      align-items: center;
+      display: flex;
+      position: static;
+    }
   }
 
   &__user {
     font-size: .9em;
+
+    @media screen and (max-width: $screen-xs-max) {
+      padding-right: 5px;
+    }
   }
 
   &__gravatar {

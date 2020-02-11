@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+}
+
+md-dialog {
+  width: 100%;
+}
+
+md-option {
+  height: 40px;
+
+  & .md-text {
+    font-size: .8em;
+  }
+}
