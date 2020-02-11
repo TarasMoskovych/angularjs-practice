@@ -52,7 +52,8 @@ angular
         template: '<register></register>'
       })
       .when('/browse', {
-        template: '<task-browse></task-browse>'
+        template: '<task-browse></task-browse>',
+        reloadOnSearch: false
       })
       .otherwise({
         redirectTo: '/login'

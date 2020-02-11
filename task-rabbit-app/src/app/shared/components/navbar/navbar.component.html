@@ -2,13 +2,16 @@
   <div class="md-toolbar-tools">
     <h2 class="navbar__header--desktop">TaskRabbit</h2>
     <h2 class="navbar__header--mobile">TRb</h2>
-    <div class="navbar__actions" ng-class="$ctrl.isSignedIn ? '' : 'navbar__actions--flex-end'">
-      <div class="navbar__actions--options" ng-if="$ctrl.isSignedIn">
-        <md-button class="navbar__link-button" ng-click="$ctrl.openNewTaskModal();">
-          Post a Task
-        </md-button>
+    <div class="navbar__actions">
+      <div class="navbar__actions--options">
         <md-button class="navbar__link-button" ng-href="#!browse">
           Browse Tasks
+        </md-button>
+        <md-button
+          class="navbar__link-button"
+          ng-click="$ctrl.openNewTaskModal();"
+          ng-if="$ctrl.isSignedIn"
+        >Post a Task
         </md-button>
       </div>
       <div class="navbar__actions--auth">

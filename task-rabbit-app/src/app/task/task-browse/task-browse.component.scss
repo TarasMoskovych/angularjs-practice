@@ -32,9 +32,11 @@
     }
 
     &--admin {
+      max-width: 300px;
       width: 60%;
 
       @media screen and (max-width: 768px) {
+        max-width: 100%;
         width: 100%;
       }
 
@@ -55,11 +57,22 @@
         padding-top: 10px;
       }
     }
+
+    &--info {
+      h4:first-child {
+        margin-bottom: 0;
+      }
+    }
   }
 
   &__list {
     max-height: 70vh;
     overflow: auto;
+
+    &--empty {
+      color: #8F8D8F;
+      text-align: center;
+    }
 
     &--scrollbar {
       &::-webkit-scrollbar {
@@ -98,7 +111,7 @@
     }
 
     &--closed {
-      background-color: $red;
+      background-color: #8F8D8F;
 
       &::after {
         content: 'closed';
@@ -124,9 +137,18 @@
   &__creator {
     align-items: center;
     display: flex;
+    font-size: .9em;
 
     span {
       font-size: .85em;
+    }
+
+    img {
+      border-radius: 50%;
+      height: 30px;
+      object-fit: cover;
+      padding-right: 5px;
+      width: 30px;
     }
   }
 

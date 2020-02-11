@@ -7,45 +7,52 @@
       </md-input-container>
     </div>
     <div class="task-browse__list task-browse__list--scrollbar">
+      <h2 class="task-browse__list--empty" ng-if="$ctrl.empty === 0">Task list is empty</h2>
       <mat-list>
         <md-list-item
           class="task-browse__list-item md-3-line"
-          ng-repeat="task in $ctrl.tasks | filter: search | orderBy: 'title'"
-          ng-href="#!browse/{{ task.$id }}"
-        ><img ng-src="{{ $ctrl.taskIcon }}" class="md-avatar" alt="Image" />
+          ng-repeat="task in $ctrl.tasks | filter: { title: search, status: '!cancelled' } | orderBy: 'datetime' :true"
+          ng-href="#!browse?taskId={{ task.$id }}"
+        ><img ng-src="{{ task.photoURL }}" class="md-avatar" alt="Image" />
           <div class="md-list-item-text" layout="column">
             <h3 class="task-browse__list-item--title">{{ task.title | limitTo: 20 }}</h3>
-            <h3 am-time-ago="1581369733973"></h3>
+            <h3 am-time-ago="task.datetime"></h3>
           </div>
           <div class="task-browse__payment md-list-item-text" layout="column" layout-align="end center">
             <p>{{ task.total | currency }}</p>
-            <h3 class="task-browse__status"></h3>
+            <h3 class="task-browse__status" ng-class="task.status === 'open' ? '' : 'task-browse__status--closed'"></h3>
           </div>
         </md-list-item>
       </mat-list>
     </div>
   </div>
-  <div class="task-browse__details" layout-padding>
+  <div class="task-browse__details" layout-padding ng-if="$ctrl.selectedTask && $ctrl.empty !== 0">
     <div>
       <div class="task-browse__details--info">
         <h4>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum, et!
+          {{ $ctrl.selectedTask.title }}
         </h4>
         <div class="task-browse__creator">
-          <p>Posted by <i>Taras - <span am-time-ago="1581369733973"></i></span></p>&nbsp;
-          <h4 class="task-browse__status task-browse__status--closed"></h4>
+          <img ng-src="{{ $ctrl.selectedTask.photoURL }}" class="md-avatar" alt="Image" />
+          <p>Posted by <i>{{ $ctrl.selectedTask.displayName }} - <span am-time-ago="$ctrl.selectedTask.datetime"></i></span></p>&nbsp;
+          <h4
+            class="task-browse__status"
+            ng-class="$ctrl.selectedTask.status === 'open' ? '' : 'task-browse__status--closed'"
+          ></h4>
         </div>
       </div>
       <div class="task-browse__details--admin">
         <md-card>
           <md-card-title>
             <md-card-title-text>
-              <p>{{ '150' | currency }}</p>
+              <p>{{ $ctrl.selectedTask.total | currency }}</p>
             </md-card-title-text>
           </md-card-title>
           <md-card-actions layout="row" layout-align="end center">
-            <md-button class="md-raised">Update</md-button>
-            <md-button class="md-raised md-warn">Remove</md-button>
+            <div ng-if="$ctrl.admin && $ctrl.selectedTask.status === 'open'">
+              <md-button ng-click="$ctrl.onUpdate();" class="md-raised">Update</md-button>
+              <md-button ng-click="$ctrl.onCancel();" class="md-raised md-warn">Complete</md-button>
+            </div>
           </md-card-actions>
         </md-card>
       </div>
@@ -57,8 +64,7 @@
         </md-card-title-text>
       </md-card-title>
       <md-card-content>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Debitis
-        aliquam sunt laboriosam possimus tenetur, repellendus cum sit non voluptates nemo?
+        {{ $ctrl.selectedTask.description }}
       </md-card-content>
     </md-card>
   </div>

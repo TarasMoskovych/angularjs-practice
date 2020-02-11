@@ -1,21 +1,66 @@
 import angular from 'angular';
 import './task-browse.component.scss';
-import taskIcon from './../../../assets/task.png';
 
 export const taskBrowse = {
   template: require('./task-browse.component.html').default,
-  controller: function(TaskService) {
+  controller: function($routeParams, $scope, $mdDialog, TaskService, NotificationService) {
+    this.admin = false;
+    this.empty = false;
     this.loading = true;
+    this.selectedTask = null;
 
     this.$onInit = function() {
+      this.getTask($routeParams.taskId);
       this.getTasks();
-      this.taskIcon = taskIcon;
+    };
+
+    $scope.$on('$routeUpdate', (e, { params }) => {
+      this.getTask(params.taskId);
+    });
+
+    this.getTask = function(taskId) {
+      if (taskId) {
+        TaskService.getById(taskId)
+          .then(selectedTask => {
+            this.selectedTask = selectedTask;
+            this.admin = TaskService.isCreator(selectedTask);
+          });
+      }
     };
 
     this.getTasks = function() {
       TaskService.get()
-        .then(tasks => this.tasks = tasks)
+        .then(tasks => {
+          this.tasks = tasks;
+          this.calculateOpenedTasks();
+        })
         .finally(() => this.loading = false);
+    };
+
+    this.onUpdate = function() {
+      const close = () => $mdDialog.hide();
+
+      $mdDialog.show({
+        template: `<task-edit task="task" close="close();"></task-edit>`,
+        clickOutsideToClose: true,
+        locals: { task: this.selectedTask, close },
+        controller: function($scope, task, close) {
+          $scope.task = task;
+          $scope.close = close;
+        }
+      });
+    };
+
+    this.onCancel = function() {
+      TaskService.remove(this.selectedTask.$id)
+        .then(() => {
+          this.calculateOpenedTasks();
+          NotificationService.show(`${this.selectedTask.title} was completed.`);
+        });
+    };
+
+    this.calculateOpenedTasks = function() {
+      this.empty = this.tasks.filter(task => task.status === 'open').length;
     };
   }
 };

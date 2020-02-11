@@ -6,7 +6,15 @@ export const taskPost = {
     close: '&'
   },
   template: require('./task-post.component.html').default,
-  controller: function($scope, TaskService) {
+  controller: function(TaskService) {
+    this.$onInit = function() {
+      this.task = {
+        title: '',
+        description: '',
+        total: ''
+      };
+    };
+
     this.postTask = function({ data }) {
       TaskService.add(data)
         .then(() => this.close());

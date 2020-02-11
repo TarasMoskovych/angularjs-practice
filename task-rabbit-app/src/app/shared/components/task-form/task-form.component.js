@@ -4,16 +4,15 @@ import './task-form.component.scss';
 const taskForm = {
   bindings: {
     title: '@',
+    task: '<',
     onSubmit: '&',
   },
   template: require('./task-form.component.html').default,
   controller: function() {
-    this.$onInit = function() {
-      this.task = {
-        title: '',
-        description: '',
-        total: ''
-      };
+    this.$onChanges = function(changes) {
+      if (changes.task) {
+        this.task = angular.copy(this.task);
+      }
     };
 
     this.submit = function() {
