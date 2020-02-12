@@ -11,7 +11,7 @@ import 'angular-material/angular-material.scss';
 import { app } from './app.component';
 
 // Firebase
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
 import 'angularfire';
 import { firebaseConfig } from './../firebase';
 

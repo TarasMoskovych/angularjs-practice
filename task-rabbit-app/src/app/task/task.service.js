@@ -25,7 +25,9 @@ function TaskService($firebaseArray, $firebaseObject, AuthService) {
     });
   };
 
-  this.update = function({ $id, datetime, description, displayName, photoURL, poster, status, title, total }) {
+  this.update = function({ $id, datetime, description, displayName, poster, status, title, total }) {
+    const { photoURL } = AuthService.isSignedIn();
+
     return ref.child($id).update({ datetime, description, displayName, photoURL, poster, status, title, total });
   };
 
