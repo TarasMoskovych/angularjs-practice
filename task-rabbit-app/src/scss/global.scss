@@ -13,3 +13,16 @@ md-option {
     font-size: .8em;
   }
 }
+
+.custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+    background-color: $grey;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 7px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #283593;
+  }
+}

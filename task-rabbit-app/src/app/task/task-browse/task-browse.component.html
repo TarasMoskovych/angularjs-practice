@@ -1,3 +1,7 @@
+<md-sidenav class="md-sidenav-right" md-component-id="messages" md-whiteframe="4">
+  <messages task="$ctrl.selectedTask"></messages>
+</md-sidenav>
+
 <md-content class="task-browse" layout-padding>
   <div class="task-browse__tasks">
     <div class="task-browse__search-container">
@@ -6,7 +10,7 @@
         <input ng-model="search">
       </md-input-container>
     </div>
-    <div class="task-browse__list task-browse__list--scrollbar">
+    <div class="task-browse__list custom-scrollbar">
       <h2 class="task-browse__list--empty" ng-if="$ctrl.empty === 0">Task list is empty</h2>
       <mat-list>
         <md-list-item
@@ -30,7 +34,7 @@
   <div class="task-browse__details" layout-padding ng-if="$ctrl.selectedTask && $ctrl.empty !== 0">
     <div>
       <div class="task-browse__details--info">
-        <h4>
+        <h4 ng-click="$ctrl.onOpenMessages();">
           {{ $ctrl.selectedTask.title }}
         </h4>
         <div class="task-browse__creator">
@@ -66,39 +70,6 @@
       </md-card-title>
       <md-card-content>
         {{ $ctrl.selectedTask.description }}
-      </md-card-content>
-    </md-card>
-    <md-card class="task-browse__card-wrapper">
-      <md-card-title>
-        <md-card-title-text>
-          Comments
-        </md-card-title-text>
-      </md-card-title>
-      <md-card-content>
-        <div ng-if="!$ctrl.messages.length">
-          No comments yet
-        </div>
-        <md-list class="md-dense" flex>
-          <md-list-item class="md-3-line" ng-repeat="message in $ctrl.messages">
-            <img ng-src="{{ message.photoURL }}" class="md-avatar" alt="" />
-            <div class="md-list-item-text" layout="column" flex="70">
-              <h3>{{ message.displayName }}</h3>
-              <p>{{ message.message }}</p>
-            </div>
-            <div class="md-list-item-text" layout="column" flex="30">
-              <h4 style="text-align: right;" am-time-ago="message.datetime"></h4>
-            </div>
-          </md-list-item>
-        </md-list>
-        <div layout="row" layout-align="center center" ng-if="$ctrl.isLoggedIn();">
-          <md-input-container style="width: 100%;">
-            <label>Message</label>
-            <input type="text" ng-keyup="$ctrl.onSendMessage($event);" ng-model="$ctrl.message">
-          </md-input-container>
-          <md-button ng-click="$ctrl.onSendMessage()" class="md-icon-button md-primary task-browse__send-btn" aria-label="Submit">
-            <md-icon aria-label="Menu" class="material-icons">send</md-icon>
-          </md-button>
-        </div>
       </md-card-content>
     </md-card>
   </div>

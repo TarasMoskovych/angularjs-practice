@@ -60,7 +60,9 @@
 
     &--info {
       h4:first-child {
+        cursor: pointer;
         margin-bottom: 0;
+        outline: none;
         text-decoration: underline;
       }
     }
@@ -73,19 +75,6 @@
     &--empty {
       color: #8F8D8F;
       text-align: center;
-    }
-
-    &--scrollbar {
-      &::-webkit-scrollbar {
-        width: 6px;
-        background-color: $grey;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        border-radius: 7px;
-        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-        background-color: #283593;
-      }
     }
 
     &-item {
@@ -168,10 +157,5 @@
     md-card-content {
       padding: 10px;
     }
-  }
-
-  &__send-btn {
-    position: relative;
-    top: -5px;
   }
 }

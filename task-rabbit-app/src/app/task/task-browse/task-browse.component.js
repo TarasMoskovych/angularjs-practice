@@ -3,13 +3,20 @@ import './task-browse.component.scss';
 
 export const taskBrowse = {
   template: require('./task-browse.component.html').default,
-  controller: function($routeParams, $scope, $mdDialog, AuthService, TaskService, NotificationService, MessageService) {
+  controller: function(
+    $routeParams,
+    $scope,
+    $mdDialog,
+    $mdSidenav,
+    AuthService,
+    TaskService,
+    NotificationService
+  ) {
     this.admin = false;
     this.isLoggedIn = AuthService.isSignedIn;
     this.empty = false;
     this.loading = true;
     this.selectedTask = null;
-    this.messages = [];
 
     this.$onInit = function() {
       this.getTask($routeParams.taskId);
@@ -26,14 +33,8 @@ export const taskBrowse = {
           .then(selectedTask => {
             this.selectedTask = selectedTask;
             this.admin = TaskService.isCreator(selectedTask);
-            this.getMessages(selectedTask.$id);
           });
       }
-    };
-
-    this.getMessages = function(taskId) {
-      MessageService.get(taskId)
-        .then(messages => this.messages = messages);
     };
 
     this.getTasks = function() {
@@ -71,11 +72,8 @@ export const taskBrowse = {
       this.empty = this.tasks.filter(task => task.status === 'open').length;
     };
 
-    this.onSendMessage = function(event) {
-      if (this.message && (!event || event?.keyCode === 13)) {
-        MessageService.add(this.selectedTask.$id, this.message)
-          .then(() => this.message = '');
-      }
+    this.onOpenMessages = function() {
+      $mdSidenav('messages').toggle();
     };
   }
 };

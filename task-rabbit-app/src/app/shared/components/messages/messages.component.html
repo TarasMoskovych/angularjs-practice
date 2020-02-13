@@ -1,0 +1,33 @@
+<md-toolbar class="md-theme-indigo">
+  <h1 class="md-toolbar-tools">Messages</h1>
+</md-toolbar>
+<md-content flex layout-padding class="messages">
+  <div ng-if="!$ctrl.messages.length">
+    No Messages yet
+  </div>
+  <div class="messages__list custom-scrollbar">
+    <md-list class="md-dense" flex>
+      <md-list-item class="md-3-line" ng-repeat="message in $ctrl.messages">
+        <img ng-src="{{ message.photoURL }}" class="md-avatar" alt="" />
+        <div class="md-list-item-text" layout="column" flex="70">
+          <h3>{{ message.displayName }}</h3>
+          <p>{{ message.message }}</p>
+        </div>
+        <div class="md-list-item-text" layout="column" flex="30">
+          <h4 style="text-align: right;" am-time-ago="message.datetime"></h4>
+        </div>
+      </md-list-item>
+    </md-list>
+    <div class="scroll-view"></div>
+  </div>
+  <div layout="row" layout-align="center center" ng-if="$ctrl.isLoggedIn();" class="messages__form">
+    <md-input-container style="width: 100%;">
+      <label>Message</label>
+      <input type="text" ng-keyup="$ctrl.onSendMessage($event);" ng-model="$ctrl.message">
+    </md-input-container>
+    <md-button ng-click="$ctrl.onSendMessage()" class="md-icon-button md-primary messages__send-btn"
+      aria-label="Submit">
+      <md-icon aria-label="Menu" class="material-icons">send</md-icon>
+    </md-button>
+  </div>
+</md-content>

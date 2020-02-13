@@ -1,0 +1,21 @@
+.messages {
+  &__send-btn {
+    position: relative;
+    top: -5px;
+  }
+
+  &__form {
+    position: fixed;
+    bottom: 0;
+    width: 95%;
+
+    md-input-container {
+      margin: 0;
+    }
+  }
+
+  &__list {
+    max-height: 80vh;
+    overflow: auto;
+  }
+}
