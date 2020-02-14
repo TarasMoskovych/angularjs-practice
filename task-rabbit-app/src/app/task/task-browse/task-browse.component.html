@@ -16,7 +16,7 @@
         <md-list-item
           class="task-browse__list-item md-3-line"
           ng-class="task.$id === $ctrl.selectedTask.$id ? 'task-browse__list-item--selected' : ''"
-          ng-repeat="task in $ctrl.tasks | filter: { title: search, status: '!cancelled' } | orderBy: 'datetime' :true"
+          ng-repeat="task in $ctrl.tasks | filter: { title: search } | orderBy: 'datetime' :true"
           ng-href="#!browse?taskId={{ task.$id }}"
         ><img ng-src="{{ task.photoURL }}" class="md-avatar" alt="Image" />
           <div class="md-list-item-text" layout="column">
@@ -25,12 +25,13 @@
           </div>
           <div class="task-browse__payment md-list-item-text" layout="column" layout-align="end center">
             <p>{{ task.total | currency }}</p>
-            <h3 class="task-browse__status" ng-class="task.status === 'open' ? '' : 'task-browse__status--closed'"></h3>
+            <h4 class="task-browse__status task-browse__status--{{ task.status }}"></h4>
           </div>
         </md-list-item>
       </mat-list>
     </div>
   </div>
+  <div class="task-browse__details task-browse__details--not-selected" layout-padding ng-if="!$ctrl.selectedTask"></div>
   <div class="task-browse__details" layout-padding ng-if="$ctrl.selectedTask && $ctrl.empty !== 0">
     <div>
       <div class="task-browse__details--info">
@@ -40,10 +41,7 @@
         <div class="task-browse__creator">
           <img ng-src="{{ $ctrl.selectedTask.photoURL }}" class="md-avatar" alt="Image" />
           <p>Posted by <i>{{ $ctrl.selectedTask.displayName }} - <span am-time-ago="$ctrl.selectedTask.datetime"></i></span></p>&nbsp;
-          <h4
-            class="task-browse__status"
-            ng-class="$ctrl.selectedTask.status === 'open' ? '' : 'task-browse__status--closed'"
-          ></h4>
+          <h5 class="task-browse__status task-browse__status--{{ $ctrl.selectedTask.status }}"></h5>
         </div>
       </div>
       <div class="task-browse__details--admin">
@@ -53,10 +51,18 @@
               <p>{{ $ctrl.selectedTask.total | currency }}</p>
             </md-card-title-text>
           </md-card-title>
-          <md-card-actions layout="row" layout-align="end center">
-            <div ng-if="$ctrl.admin && $ctrl.selectedTask.status === 'open'">
-              <md-button ng-click="$ctrl.onUpdate();" class="md-raised">Update</md-button>
-              <md-button ng-click="$ctrl.onCancel();" class="md-raised md-warn">Complete</md-button>
+          <md-card-actions layout="row" layout-align="center center">
+            <div ng-if="$ctrl.isLoggedIn()">
+              <div ng-if="$ctrl.isCreator && $ctrl.selectedTask.status === 'open'">
+                <md-button ng-click="$ctrl.onUpdateTask();" class="md-raised">Update</md-button>
+                <md-button ng-click="$ctrl.onCancelTask();" class="md-raised md-warn">Cancel</md-button>
+              </div>
+              <div ng-if="!$ctrl.isCreator && $ctrl.selectedTask.status === 'open' && !$ctrl.isOfferred">
+                <md-button ng-click="$ctrl.openMakeOfferModal();" class="md-raised">Make an offer</md-button>
+              </div>
+              <div ng-if="$ctrl.selectedTask.status !== 'completed' && $ctrl.isAssignee">
+                <md-button ng-click="$ctrl.onCompleteTask();" class="md-raised md-primary">Complete</md-button>
+              </div>
             </div>
           </md-card-actions>
         </md-card>
@@ -70,6 +76,42 @@
       </md-card-title>
       <md-card-content>
         {{ $ctrl.selectedTask.description }}
+      </md-card-content>
+    </md-card>
+    <md-card class="task-browse__card-wrapper">
+      <md-card-title>
+        <md-card-title-text>
+          Offers
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-content>
+        <div style="text-align: center;" ng-if="!$ctrl.offers.length">No offers yet</div>
+        <md-list class="md-dense" flex>
+          <md-list-item class="md-3-line" ng-repeat="offer in $ctrl.offers">
+            <img ng-src="{{ offer.photoURL }}" class="md-avatar" alt="" />
+            <div class="md-list-item-text" layout="row" flex="50">
+              <h4>{{ offer.displayName }}</h4>
+            </div>
+            <div class="md-list-item-text" layout="row" layout-align="end center" flex="50">
+              <h3 ng-if="offer.assigned" class="task-browse__status task-browse__status--assigned"></h3>
+              <md-button
+                ng-if="$ctrl.selectedTask.status === 'open' && $ctrl.isCreator"
+                ng-click="$ctrl.onAcceptOffer(offer)"
+                class="md-icon-button md-primary"
+                aria-label="Accept"
+              ><md-icon class="material-icons">check</md-icon>
+              </md-button>
+              <md-button
+                ng-if="$ctrl.selectedTask.status === 'open' && $ctrl.isMaker(offer)"
+                ng-click="$ctrl.onCancelOffer(offer.$id)"
+                class="md-icon-button md-warn"
+                aria-label="Cancel"
+              ><md-icon class="material-icons">cancel</md-icon>
+              </md-button>
+              <h4 style="text-align: right; padding-left: 5px;">{{ offer.total | currency }}</h4>
+            </div>
+          </md-list-item>
+        </md-list>
       </md-card-content>
     </md-card>
   </div>

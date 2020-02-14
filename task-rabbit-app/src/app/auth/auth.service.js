@@ -47,10 +47,10 @@ function AuthService($rootScope, $location) {
       .then(snapshot => snapshot.ref.getDownloadURL().then(downloadURL => _updateProfile(downloadURL)));
   };
 
-  const isSignedIn = () => auth.currentUser;
+  const isSignedIn = () => auth?.currentUser?.emailVerified ? auth.currentUser : null;
 
   const redirect = () => {
-    if (auth.currentUser) {
+    if (auth?.currentUser?.emailVerified) {
       $location.path('/browse');
     }
   };

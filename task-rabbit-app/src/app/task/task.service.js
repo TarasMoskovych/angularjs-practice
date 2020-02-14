@@ -25,18 +25,28 @@ function TaskService($firebaseArray, $firebaseObject, AuthService) {
     });
   };
 
-  this.update = function({ $id, datetime, description, displayName, poster, status, title, total }) {
+  this.update = function({ $id, datetime, description, displayName, poster, status, title, total, runner }) {
     const { photoURL } = AuthService.isSignedIn();
+    const obj = { datetime, description, displayName, photoURL, poster, status, title, total, runner };
 
-    return ref.child($id).update({ datetime, description, displayName, photoURL, poster, status, title, total });
+    Object.keys(obj).forEach((key) => (obj[key] === null || obj[key] === undefined) && delete obj[key]);
+    return ref.child($id).update(obj);
   };
 
-  this.remove = function(id) {
-    return ref.child(id).update({ status: 'cancelled' });
+  this.remove = function($id) {
+    return this.update({ $id, status: 'cancelled' });
+  };
+
+  this.complete = function($id) {
+    return this.update({ $id, status: 'completed' });
   };
 
   this.isCreator = function(task) {
     return AuthService.isSignedIn()?.uid === task.poster;
+  };
+
+  this.isAssignee = function(task) {
+    return AuthService.isSignedIn()?.uid === task.runner;
   };
 
   this.isOpen = function(task) {

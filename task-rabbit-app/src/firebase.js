@@ -18,6 +18,7 @@ export const databases = {
   storage: () => firebase.storage().ref(),
   timestamp: () => firebase.database.ServerValue.TIMESTAMP,
   messages: () => firebase.database().ref('messages'),
+  offers: () => firebase.database().ref('offers'),
   users: () => firebase.database().ref('users'),
   tasks: () => firebase.database().ref('tasks'),
 };
