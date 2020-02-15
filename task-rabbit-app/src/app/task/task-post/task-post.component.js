@@ -1,5 +1,4 @@
 import angular from 'angular';
-import './task-post.component.scss';
 
 export const taskPost = {
   bindings: {

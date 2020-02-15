@@ -14,6 +14,7 @@ const navBar = {
     this.onChangeAction = function() {
       if (this.select === 'logout') this.logout();
       if (this.select === 'update') this.updateProfile();
+      if (this.select === 'dashboard') $location.path('/').search({});
 
       this.select = null;
     };

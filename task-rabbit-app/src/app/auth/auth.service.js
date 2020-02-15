@@ -51,14 +51,15 @@ function AuthService($rootScope, $location) {
 
   const redirect = () => {
     if (auth?.currentUser?.emailVerified) {
-      $location.path('/browse');
+      $rootScope.$emit('authStateChanged', auth.currentUser);
+      $location.path('/');
     }
   };
 
   auth.onAuthStateChanged(authData => {
     if (authData?.emailVerified) {
       $rootScope.$emit('authStateChanged', authData);
-      $location.path('/browse');
+      $location.path('/');
       $rootScope.$apply();
     } else {
       $rootScope.$emit('authStateChanged', null);

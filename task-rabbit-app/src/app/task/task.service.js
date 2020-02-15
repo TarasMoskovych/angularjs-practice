@@ -8,6 +8,10 @@ function TaskService($firebaseArray, $firebaseObject, AuthService) {
     return $firebaseArray(ref).$loaded();
   };
 
+  this.getUserTasks = function(key) {
+    return $firebaseArray(ref.orderByChild(key).equalTo(AuthService.isSignedIn().uid)).$loaded();
+  };
+
   this.getById = function(id) {
     return $firebaseObject(ref.child(id)).$loaded();
   };
@@ -25,10 +29,11 @@ function TaskService($firebaseArray, $firebaseObject, AuthService) {
     });
   };
 
-  this.update = function({ $id, datetime, description, displayName, poster, status, title, total, runner }) {
+  this.update = function({ $id, datetime, description, displayName, poster, status, title, total, runner }, updatePhoto = true) {
     const { photoURL } = AuthService.isSignedIn();
-    const obj = { datetime, description, displayName, photoURL, poster, status, title, total, runner };
+    const obj = { datetime, description, displayName, poster, status, title, total, runner };
 
+    if (updatePhoto) { Object.assign(obj, { photoURL }); }
     Object.keys(obj).forEach((key) => (obj[key] === null || obj[key] === undefined) && delete obj[key]);
     return ref.child($id).update(obj);
   };
@@ -38,7 +43,7 @@ function TaskService($firebaseArray, $firebaseObject, AuthService) {
   };
 
   this.complete = function($id) {
-    return this.update({ $id, status: 'completed' });
+    return this.update({ $id, status: 'completed' }, false);
   };
 
   this.isCreator = function(task) {

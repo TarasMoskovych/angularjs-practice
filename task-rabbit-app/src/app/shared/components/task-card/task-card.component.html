@@ -1,0 +1,18 @@
+<md-card class="task-card {{ $ctrl.titleWrapperClass }}">
+  <md-card-title>
+    <md-card-title-text>
+     {{ $ctrl.titleText }} ({{ $ctrl.tasks.length }})
+    </md-card-title-text>
+  </md-card-title>
+  <md-card-content>
+    <h4 ng-if="!$ctrl.tasks.length">No tasks yet</h4>
+    <ul>
+      <li ng-repeat="task in $ctrl.tasks">
+        <div>
+          <a ng-href="#!browse?taskId={{ task.$id }}">{{ task.title }}</a> &nbsp;
+          <p class="task-browse__status task-browse__status--{{ task.status }}"></p>
+        </div>
+      </li>
+    </ul>
+  </md-card-content>
+</md-card>

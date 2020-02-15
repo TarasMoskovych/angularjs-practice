@@ -24,6 +24,10 @@ import './shared/services';
 import './auth/auth.module';
 import './auth/index';
 
+// Dashboard Module
+import './dashboard/dashboard.module';
+import './dashboard/index';
+
 // Task Module
 import './task/task.module';
 import './task/index';
@@ -33,6 +37,7 @@ angular
     'shared',
     'auth',
     'task',
+    'dashboard',
     'ngRoute',
     'ngMaterial',
     'ngMessages',
@@ -45,6 +50,9 @@ angular
     firebase.initializeApp(firebaseConfig);
 
     $routeProvider
+      .when('/', {
+        template: '<dashboard></dashboard>'
+      })
       .when('/login', {
         template: '<login></login>'
       })

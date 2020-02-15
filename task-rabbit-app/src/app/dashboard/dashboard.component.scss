@@ -1,0 +1,25 @@
+@import './../../scss/variables';
+
+.dashboard {
+  display: flex;
+
+  @media screen and (max-width: $screen-xs-max) {
+    display: block;
+  }
+
+  task-card {
+    width: 100%;
+  }
+
+  &__runner {
+    md-card-title {
+      background: $red;
+    }
+  }
+
+  &__poster {
+    md-card-title {
+      background: $green;
+    }
+  }
+}
